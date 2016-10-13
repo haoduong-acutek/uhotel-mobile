@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"  android:fitsSystemWindows="true"
+    android:layout_height="match_parent" android:orientation="vertical"
+    >
+
+    <RelativeLayout android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView android:layout_centerInParent="true"
+            android:layout_width="wrap_content" android:id="@+id/imaLogo"
+            android:layout_height="wrap_content" android:src="@drawable/uhotel"/>
+        <ImageView android:layout_centerVertical="true" android:id="@+id/btnClose"
+            android:padding="10dp"
+            android:layout_width="wrap_content" android:layout_alignParentRight="true"
+            android:layout_height="wrap_content" android:src="@drawable/x"/>
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent" android:id="@+id/rcvMenu"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

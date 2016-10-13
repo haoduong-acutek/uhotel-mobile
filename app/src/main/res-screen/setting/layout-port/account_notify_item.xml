@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/transparent"
+    android:focusable="true" android:paddingRight="20dp"
+    android:paddingLeft="30dp"
+    android:focusableInTouchMode="true"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="110dp"
+        android:layout_height="40dp" android:gravity="center_vertical"
+        android:layout_alignParentLeft="true"
+        android:duplicateParentState="true"
+        android:text="Name"
+        android:textColor="@color/setting_row_selector"
+        android:textSize="@dimen/normal" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:gravity="left|center_vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/txtName"
+        android:enabled="false" android:duplicateParentState="true"
+        android:textOn="On" android:textOff="Off"
+        android:background="@null"
+        android:textColor="@color/white"
+        android:textSize="@dimen/normal" />
+
+
+</RelativeLayout>

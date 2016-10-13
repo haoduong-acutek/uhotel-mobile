@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#2a2a2a"
+    android:layout_width="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp" android:background="@color/orange"/>
+
+    <TextView android:layout_gravity="center_horizontal" android:layout_marginTop="20dp"
+        android:layout_width="wrap_content" android:textColor="@color/dark"
+        android:lines="2" android:gravity="center" android:id="@+id/txtTitle"
+        android:layout_height="wrap_content" android:text="Create a 4 digit-PIN \nto access this locked content"/>
+
+    <LinearLayout android:gravity="center" android:layout_marginTop="5dp"
+        android:layout_width="wrap_content" android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content" android:orientation="horizontal">
+        <EditText android:gravity="center" android:id="@+id/ediPin1" android:textColor="@color/black"
+            android:imeOptions="actionNext" android:selectAllOnFocus="true" android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="@dimen/parental_size" android:maxLength="1" android:inputType="number"
+            android:layout_height="@dimen/parental_size" android:background="@drawable/parental_pin_selector"/>
+        <EditText android:gravity="center" android:id="@+id/ediPin2" android:maxLength="1"
+            android:imeOptions="actionNext" android:selectAllOnFocus="true" android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="@dimen/parental_size" android:inputType="number" android:textColor="@color/black"
+            android:layout_height="@dimen/parental_size" android:background="@drawable/parental_pin_selector"/>
+        <EditText android:gravity="center" android:id="@+id/ediPin3" android:maxLength="1"
+            android:imeOptions="actionNext" android:selectAllOnFocus="true"  android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="@dimen/parental_size" android:inputType="number" android:textColor="@color/black"
+            android:layout_height="@dimen/parental_size" android:background="@drawable/parental_pin_selector"/>
+        <EditText android:gravity="center" android:id="@+id/ediPin4" android:maxLength="1"
+            android:imeOptions="actionDone" android:selectAllOnFocus="true" android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="@dimen/parental_size" android:inputType="number" android:textColor="@color/black"
+            android:layout_height="@dimen/parental_size" android:background="@drawable/parental_pin_selector"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_marginTop="20dp"
+        android:layout_width="wrap_content" android:layout_gravity="center_horizontal"
+        android:orientation="horizontal" android:gravity="center"
+        android:layout_height="wrap_content">
+    <Button android:gravity="center" android:textAllCaps="false"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="100dp" android:text="Home" android:layout_centerVertical="true"
+        android:id="@+id/btnHome" android:textColor="@color/orange"
+        android:layout_height="35dp" android:background="@drawable/rectangle_border_shape"/>
+        <Button android:gravity="center" android:textAllCaps="false"
+            android:layout_gravity="center_horizontal" android:layout_marginLeft="20dp"
+            android:layout_width="100dp" android:text="Unlock" android:layout_centerVertical="true"
+            android:id="@+id/btnUnlock" android:textColor="@color/orange"
+            android:layout_height="35dp" android:background="@drawable/rectangle_border_shape"/>
+    </LinearLayout>
+</LinearLayout>
+

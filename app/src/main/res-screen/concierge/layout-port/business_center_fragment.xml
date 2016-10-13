@@ -1,0 +1,33 @@
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent" android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:paddingLeft="40dp" android:paddingRight="40dp"
+        android:paddingTop="40dp">
+
+        <ImageView android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent" android:adjustViewBounds="true"
+            android:layout_height="wrap_content" android:src="@drawable/logo_business"/>
+        <TextView android:textStyle="bold" android:layout_marginTop="50dp"
+            android:textSize="@dimen/normal"
+            android:layout_width="wrap_content" android:textColor="@color/white"
+            android:layout_height="wrap_content" android:text="Rex Hotel"/>
+        <TextView
+            android:textSize="@dimen/normal" android:id="@+id/txtAddress"
+            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="1500 Orange Ave, Coronado, CA 92118"/>
+        <TextView
+            android:textSize="@dimen/normal" android:id="@+id/txtPhone"
+            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="+1 800-468-3533"/>
+
+        <TextView
+            android:textSize="@dimen/normal" android:layout_marginTop="60dp"
+            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="Promotion"/>
+        <android.support.v7.widget.RecyclerView android:layout_marginTop="20dp"
+            android:layout_width="match_parent" android:id="@+id/recyclerView"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>

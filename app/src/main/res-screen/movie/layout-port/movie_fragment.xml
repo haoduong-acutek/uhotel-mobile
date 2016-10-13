@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+
+        android:layout_width="match_parent"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" >
+
+            <LinearLayout android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content" android:orientation="horizontal"
+                android:layout_height="wrap_content" >
+                <ImageView
+                    android:layout_width="wrap_content" android:id="@+id/imaHeaderIcon"
+                    android:layout_height="wrap_content" android:src="@drawable/reception_bell"/>
+                <TextView android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/normal" android:text="concierge"
+                    android:textAllCaps="true" android:id="@+id/txtHeaderName"
+                    android:layout_width="wrap_content"  android:textColor="@color/white"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:id="@+id/fragment"/>
+</LinearLayout>
+

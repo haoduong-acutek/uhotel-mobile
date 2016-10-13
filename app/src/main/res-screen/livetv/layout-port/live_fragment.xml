@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent" android:background="@drawable/background"
+    android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" >
+
+            <LinearLayout android:layout_gravity="center_horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content" android:orientation="horizontal"
+                android:layout_height="wrap_content" >
+                <ImageView
+                    android:layout_width="wrap_content" android:id="@+id/imaHeaderIcon"
+                    android:layout_height="wrap_content" android:src="@drawable/reception_bell"/>
+                <TextView android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/normal" android:text="concierge"
+                    android:textAllCaps="true" android:id="@+id/txtHeaderName"
+                    android:layout_width="wrap_content"  android:textColor="@color/white"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayout"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        app:tabIndicatorHeight="0dp"
+        android:layout_height="wrap_content"
+        app:tabGravity="fill"
+        app:tabMode="fixed" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:background="@drawable/bg_gradient"
+        android:id="@+id/fragment" />
+</LinearLayout>

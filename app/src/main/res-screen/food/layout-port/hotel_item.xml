@@ -1,0 +1,22 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"  android:id="@+id/imageView"
+        android:scaleType="fitXY"
+        android:layout_height="200dp" />
+    <RelativeLayout android:layout_alignParentBottom="true" android:padding="20dp"
+        android:layout_width="match_parent" android:background="@drawable/food_item_overlay_bg"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content" android:id="@+id/txtName" android:layout_above="@+id/txtDesc"
+        android:textSize="@dimen/normal" android:textStyle="bold" android:text="2"
+        android:layout_height="wrap_content" android:textColor="@color/white"/>
+    <TextView
+        android:layout_width="wrap_content" android:id="@+id/txtDesc" android:text="3"
+        android:textSize="@dimen/normal" android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content" android:textColor="@color/dark"/>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">uHOTEL</string>
+    <string name="loading_text">Please wait...</string>
+    <string name="exit">Are you sure to exit ?</string>
+    <string name="logout">Are you sure you want to log out ?</string>
+    <string name="msg_exit">Please press back again to exit</string>
+    <string name="offline_connect_msg">Sorry, network is off</string>
+
+    <drawable name="drawable_white">@color/white</drawable>
+    <drawable name="transparent">@android:color/transparent</drawable>
+    <drawable name="setting_row_focus">#826837</drawable>
+
+    <string name="cast_app_id">CC1AD845</string>
+
+    <!--sample 4F8B3483 -->
+    <!--search no watermark CC1AD845 -->
+</resources>

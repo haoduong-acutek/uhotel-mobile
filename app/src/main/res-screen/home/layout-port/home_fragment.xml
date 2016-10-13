@@ -1,0 +1,127 @@
+
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/scrollView"
+            android:fillViewport="true" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout  android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_width="match_parent" android:background="@drawable/landing_image"
+                    android:layout_height="wrap_content" android:id="@+id/root">
+
+                    <ImageView
+                        android:id="@+id/imaMenu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:src="@drawable/ico_menu" />
+
+                    <ImageView
+                        android:id="@+id/imaLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imaMenu"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="50dp"
+                        android:src="@drawable/logo" />
+
+                    <TextView
+                        android:id="@+id/lblWelcome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/imaLogo"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="50dp"
+                        android:text="Welcome back,"
+                        android:textColor="@color/white"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/txtName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/lblWelcome"
+                        android:layout_centerHorizontal="true"
+                        android:text="Mr.Brian Johnson"
+                        android:textColor="@color/orange"
+                        android:textSize="30sp" />
+
+                    <LinearLayout
+                        android:id="@+id/llWeather"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtName"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="60dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ico_weather" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="37 oc"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/normal" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/llWeather"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:maxLines="5"
+                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry "
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/normal" />
+
+                    <LinearLayout
+                        android:id="@+id/llExpand"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="hotel exclusives &amp; service"
+                            android:textColor="@color/orange"
+                            android:textSize="@dimen/normal" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/home_expand" />
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcvExpand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+/>
+            </LinearLayout>
+        </ScrollView>
+

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:background="@drawable/background"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/seekArcContainer"
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <TextView
+                android:id="@+id/lblTem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/vgSeekBar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="Room temperature"
+                android:textColor="@color/white"
+                android:textSize="@dimen/normal" />
+
+            <ImageView
+                android:id="@+id/btnDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@+id/vgSeekBar"
+                android:background="@color/black"
+                android:padding="10dp"
+                android:src="@drawable/ico_down_white" />
+
+            <ImageView
+                android:id="@+id/btnUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/vgSeekBar"
+                android:background="@color/black"
+                android:padding="10dp"
+                android:src="@drawable/ico_up_white" />
+
+            <RelativeLayout
+                android:id="@+id/vgSeekBar"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_centerInParent="true"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/circle_shape" />
+
+                <com.uhotel.control.seekarc.SeekArc
+                    android:id="@+id/seekArc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    app:arcColor="#474135"
+                    app:arcWidth="4dp"
+                    app:clockwise="true"
+                    app:max="100"
+                    app:paddingEnd="0dp"
+                    app:paddingStart="0dp"
+                    app:progress="75"
+                    app:progressColor="#cc8d00"
+                    app:rotation="0"
+
+                    app:startAngle="0"
+                    app:sweepAngle="360"
+                    app:thumb="@drawable/transparent"
+                    app:touchInside="false" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/txtProcess"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="-5dp"
+                    android:text="Set to"
+                    android:textColor="@color/dark"
+                    android:textSize="@dimen/normal" />
+
+                <TextView
+                    android:id="@+id/txtProcess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="75º"
+                    android:textColor="@color/white"
+                    android:textSize="60sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/llContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

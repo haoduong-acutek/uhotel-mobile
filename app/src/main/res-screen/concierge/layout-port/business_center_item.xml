@@ -1,0 +1,12 @@
+<LinearLayout
+    android:layout_width="match_parent"  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content" android:orientation="vertical">
+    <TextView android:id="@+id/txtName"
+        android:textSize="@dimen/normal"
+        android:layout_width="wrap_content" android:textColor="@color/dark"
+        android:layout_height="wrap_content"/>
+    <TextView android:id="@+id/txtDesc" android:textSize="@dimen/normal"
+        android:layout_width="wrap_content" android:textColor="@color/darker"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

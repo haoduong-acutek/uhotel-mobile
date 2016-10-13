@@ -1,0 +1,107 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<LinearLayout
+
+    android:gravity="center_horizontal"
+
+            android:layout_width="match_parent" android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+    <TextView android:textStyle="bold" android:layout_marginTop="30dp"
+        android:textSize="@dimen/normal"
+        android:layout_width="wrap_content" android:textColor="@color/white"
+        android:layout_height="wrap_content" android:text="Thank you for staying with us!"/>
+    <TextView android:layout_marginTop="20dp"
+        android:textSize="@dimen/normal"
+        android:layout_width="wrap_content" android:textColor="@color/dark" android:gravity="center"
+        android:layout_height="wrap_content" android:text="We charged $440 to your!\nAmerican Express Card ending in *370"/>
+    <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="40dp"
+        android:layout_width="match_parent" android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content">
+        <TextView android:textStyle="bold" android:id="@+id/lblCheckin"
+            android:layout_width="wrap_content" android:layout_centerVertical="true" android:textColor="@color/white"
+            android:layout_height="wrap_content" android:text="Check in:"/>
+        <TextView android:id="@+id/txtDateCheckIn" android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/lblCheckin" android:layout_centerVertical="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="June 12, 2014"/>
+        <TextView android:id="@+id/txtServiceName" android:layout_marginLeft="5dp" android:layout_alignParentRight="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark" android:layout_centerVertical="true"
+            android:layout_height="wrap_content" android:text="1 room, 4 nights"/>
+    </RelativeLayout>
+    <View android:layout_marginLeft="30dp" android:layout_marginRight="30dp"
+        android:layout_width="match_parent" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"
+        android:layout_height="1dp" android:background="@color/dark"/>
+    <RelativeLayout android:layout_marginRight="30dp"
+        android:layout_width="match_parent" android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content">
+        <TextView android:textStyle="bold" android:id="@+id/lblCheckout"
+            android:layout_width="wrap_content" android:layout_centerVertical="true" android:textColor="@color/white"
+            android:layout_height="wrap_content" android:text="Check out:"/>
+        <TextView android:id="@+id/txtDateCheckOut" android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/lblCheckout" android:layout_centerVertical="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="June 16, 2014"/>
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView android:layout_marginTop="20dp"
+        android:layout_width="match_parent" android:id="@+id/recyclerView"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="20dp"
+        android:layout_width="match_parent" android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content">
+        <TextView android:id="@+id/lblRoom"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="Room"/>
+        <TextView android:id="@+id/txtRoom" android:layout_marginLeft="5dp" android:layout_alignParentRight="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark" android:layout_centerVertical="true"
+            android:layout_height="wrap_content" android:text="$20"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="5dp"
+        android:layout_width="match_parent" android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content">
+        <TextView android:id="@+id/lblTax"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="Taxs &amp; Fees"/>
+        <TextView android:id="@+id/txtTax" android:layout_marginLeft="5dp" android:layout_alignParentRight="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark" android:layout_centerVertical="true"
+            android:layout_height="wrap_content" android:text="$20"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="5dp"
+        android:layout_width="match_parent" android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content">
+        <TextView android:id="@+id/lblSub"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="Subtotal"/>
+        <TextView android:id="@+id/txtSub" android:layout_marginLeft="5dp" android:layout_alignParentRight="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark" android:layout_centerVertical="true"
+            android:layout_height="wrap_content" android:text="$20"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="5dp"
+        android:layout_width="match_parent" android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content">
+        <TextView android:id="@+id/lblTotal" android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content" android:textColor="@color/orange"
+            android:layout_height="wrap_content" android:text="Total"/>
+        <TextView android:id="@+id/txtTotal" android:layout_marginLeft="5dp"
+            android:textStyle="bold" android:layout_alignParentRight="true"
+            android:layout_width="wrap_content" android:textColor="@color/orange" android:layout_centerVertical="true"
+            android:layout_height="wrap_content" android:text="$20"/>
+    </RelativeLayout>
+
+    <Button android:layout_marginTop="40dp"
+        android:layout_width="wrap_content" android:text="Checkout"
+        android:textColor="@color/orange" android:layout_gravity="center_horizontal"
+        android:layout_height="30dp" android:background="@drawable/rectangle_orange"/>
+</LinearLayout>
+
+</ScrollView>

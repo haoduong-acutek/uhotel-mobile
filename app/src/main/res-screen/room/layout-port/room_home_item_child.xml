@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp">
+
+    <TextView  android:layout_marginLeft="40dp"
+        android:layout_width="wrap_content" android:id="@+id/txtName"
+        android:textSize="@dimen/normal"
+        android:layout_height="wrap_content" android:textColor="@color/white"/>
+
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtName"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="30dp"
+        android:max="100"
+        android:layout_marginRight="30dp"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@drawable/seekbar_thumb" />
+
+    <RelativeLayout android:layout_below="@+id/seekBar" android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView android:textSize="@dimen/normal" android:layout_centerVertical="true"
+            android:layout_width="wrap_content" android:textColor="@color/dark" android:id="@+id/txtLeft"
+            android:layout_height="wrap_content" android:text="off" />
+        <TextView android:textSize="@dimen/normal" android:layout_alignParentRight="true"
+            android:layout_width="wrap_content" android:textColor="@color/white"
+            android:id="@+id/txtRight" android:layout_centerVertical="true"
+            android:layout_height="wrap_content" android:text="on" />
+    </RelativeLayout>
+
+</RelativeLayout>

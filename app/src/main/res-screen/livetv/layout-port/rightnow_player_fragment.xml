@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:background="@color/black"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp">
+        <include layout="@layout/video_control"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/txtTitle" android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content" android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:text="Max Mad"
+        android:textSize="@dimen/big" />
+    <TextView
+        android:id="@+id/txtChannelName" android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:text="Season 1"
+        android:textSize="@dimen/normal" />
+    <TextView android:layout_marginLeft="10dp"
+        android:id="@+id/txtTimeLeft"
+        android:layout_width="wrap_content"
+        android:textColor="@color/orange"
+        android:layout_height="wrap_content"
+        android:text="2 mins. left"
+        android:textSize="@dimen/small" />
+
+    <ScrollView
+        android:layout_width="match_parent" android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/txtDesc"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:text="Mad Max is a 1979 Australian dystopian action film directed by George Miller, produced by Byron Kennedy, Samuel, Hugh Keays-Byrne, Steve Bisley, Tim Burns"
+        android:textSize="@dimen/normal" />
+    </ScrollView>
+
+
+
+</LinearLayout>
