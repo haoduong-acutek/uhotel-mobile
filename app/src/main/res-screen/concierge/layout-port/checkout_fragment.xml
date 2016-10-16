@@ -10,13 +10,13 @@
             android:layout_height="wrap_content">
 
     <TextView android:textStyle="bold" android:layout_marginTop="30dp"
-        android:textSize="@dimen/normal"
+        android:textSize="@dimen/normal" android:layout_marginLeft="30dp" android:layout_marginRight="30dp"
         android:layout_width="wrap_content" android:textColor="@color/white"
         android:layout_height="wrap_content" android:text="Thank you for staying with us!"/>
     <TextView android:layout_marginTop="20dp"
-        android:textSize="@dimen/normal"
+        android:textSize="@dimen/normal" android:layout_marginLeft="30dp" android:layout_marginRight="30dp"
         android:layout_width="wrap_content" android:textColor="@color/dark" android:gravity="center"
-        android:layout_height="wrap_content" android:text="We charged $440 to your!\nAmerican Express Card ending in *370"/>
+        android:layout_height="wrap_content" android:text="We charged $445 to your\nAmerican Express Card ending in *7890."/>
     <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="40dp"
         android:layout_width="match_parent" android:layout_marginLeft="30dp"
         android:layout_height="wrap_content">
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content" android:text="Room"/>
         <TextView android:id="@+id/txtRoom" android:layout_marginLeft="5dp" android:layout_alignParentRight="true"
             android:layout_width="wrap_content" android:textColor="@color/dark" android:layout_centerVertical="true"
-            android:layout_height="wrap_content" android:text="$20"/>
+            android:layout_height="wrap_content" android:text="$239"/>
     </RelativeLayout>
     <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="5dp"
         android:layout_width="match_parent" android:layout_marginLeft="30dp"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content" android:text="Taxs &amp; Fees"/>
         <TextView android:id="@+id/txtTax" android:layout_marginLeft="5dp" android:layout_alignParentRight="true"
             android:layout_width="wrap_content" android:textColor="@color/dark" android:layout_centerVertical="true"
-            android:layout_height="wrap_content" android:text="$20"/>
+            android:layout_height="wrap_content" android:text="$16"/>
     </RelativeLayout>
     <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="5dp"
         android:layout_width="match_parent" android:layout_marginLeft="30dp"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content" android:text="Subtotal"/>
         <TextView android:id="@+id/txtSub" android:layout_marginLeft="5dp" android:layout_alignParentRight="true"
             android:layout_width="wrap_content" android:textColor="@color/dark" android:layout_centerVertical="true"
-            android:layout_height="wrap_content" android:text="$20"/>
+            android:layout_height="wrap_content" android:text="$157"/>
     </RelativeLayout>
     <RelativeLayout android:layout_marginRight="30dp" android:layout_marginTop="5dp"
         android:layout_width="match_parent" android:layout_marginLeft="30dp"
@@ -95,7 +95,7 @@
         <TextView android:id="@+id/txtTotal" android:layout_marginLeft="5dp"
             android:textStyle="bold" android:layout_alignParentRight="true"
             android:layout_width="wrap_content" android:textColor="@color/orange" android:layout_centerVertical="true"
-            android:layout_height="wrap_content" android:text="$20"/>
+            android:layout_height="wrap_content" android:text="$445"/>
     </RelativeLayout>
 
     <Button android:layout_marginTop="40dp"

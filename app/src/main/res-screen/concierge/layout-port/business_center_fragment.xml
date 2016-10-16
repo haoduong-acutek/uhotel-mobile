@@ -8,18 +8,17 @@
 
         <ImageView android:layout_gravity="center_horizontal"
             android:layout_width="match_parent" android:adjustViewBounds="true"
-            android:layout_height="wrap_content" android:src="@drawable/logo_business"/>
+            android:layout_height="wrap_content" android:src="@drawable/business_center"/>
         <TextView android:textStyle="bold" android:layout_marginTop="50dp"
             android:textSize="@dimen/normal"
             android:layout_width="wrap_content" android:textColor="@color/white"
-            android:layout_height="wrap_content" android:text="Rex Hotel"/>
+            android:layout_height="wrap_content" android:text="Fairmount Hotel"/>
         <TextView
             android:textSize="@dimen/normal" android:id="@+id/txtAddress"
             android:layout_width="wrap_content" android:textColor="@color/dark"
-            android:layout_height="wrap_content" android:text="1500 Orange Ave, Coronado, CA 92118"/>
-        <TextView
-            android:textSize="@dimen/normal" android:id="@+id/txtPhone"
-            android:layout_width="wrap_content" android:textColor="@color/dark"
+            android:layout_height="wrap_content" android:text="40 Bellevue Way NE 3rd Floor
+Bellevue, WA 98004
+(425) 451-1055"/>
             android:layout_height="wrap_content" android:text="+1 800-468-3533"/>
 
         <TextView

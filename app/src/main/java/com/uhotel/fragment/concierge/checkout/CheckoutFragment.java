@@ -68,10 +68,11 @@ public class CheckoutFragment extends Fragment implements ViewPagerTabListener {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         List<ItemInfo> list = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            list.add(new ItemInfo("3", "In-room refreshment", "$20"));
-        }
-
+//        for (int i = 0; i < 2; i++) {
+//            list.add(new ItemInfo("3", "In-room refreshments", "$21"));
+//        }
+        list.add(new ItemInfo("3", "In-room refreshments", "$21"));
+        list.add(new ItemInfo("2", "On-Demand Movies", "$10"));
         MyAdapter myAdapter = new MyAdapter(list);
         recyclerView.setAdapter(myAdapter);
     }

@@ -69,10 +69,11 @@ public class CarRentalFragment extends Fragment implements ViewPagerTabListener 
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         List<ItemInfo> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new ItemInfo("address " + i, "Name " + i));
-        }
-
+        list.add(new ItemInfo("40 Bellevue Way NE Bellevue, WA 98004 (425) 324-2353","Avis",R.drawable.car_item1));
+        list.add(new ItemInfo("40 Bellevue Way NE Bellevue, WA 98004 (425) 434-4634","Hertz", R.drawable.car_item2));
+        list.add(new ItemInfo("40 Bellevue Way NE Bellevue, WA 98004 (425) 434-4634","Budget", R.drawable.car_item3));
+        list.add(new ItemInfo("40 Bellevue Way NE Bellevue, WA 98004 (425) 434-4634","Enterprise", R.drawable.car_item4));
+        //list.add(new ItemInfo("Hertz", "40 Bellevue Way NE Bellevue, WA 98004 (425) 434-4634",R.drawable.car_item2+""));
         MyAdapter myAdapter = new MyAdapter(list);
         recyclerView.setAdapter(myAdapter);
 
@@ -139,7 +140,7 @@ public class CarRentalFragment extends Fragment implements ViewPagerTabListener 
             });
             myViewHolder.txtName.setText(detailItem.name);
             myViewHolder.txtAddress.setText(detailItem.address);
-            myViewHolder.imageView.setImageResource(R.drawable.carrental_item);
+            myViewHolder.imageView.setImageResource(detailItem.url);
 
 
         }
@@ -171,13 +172,18 @@ public class CarRentalFragment extends Fragment implements ViewPagerTabListener 
     }
 
     class ItemInfo {
-        public String url;
+        public int url;
         public String name;
         public String address;
 
         public ItemInfo(String address, String name) {
             this.address = address;
             this.name = name;
+        }
+        public ItemInfo(String address, String name,int url) {
+            this.address = address;
+            this.name = name;
+            this.url=url;
         }
     }
 

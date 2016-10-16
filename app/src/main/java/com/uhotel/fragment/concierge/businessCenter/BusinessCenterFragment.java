@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.uhotel.R;
+import com.uhotel.control.DividerItemDecoration;
 import com.uhotel.fragment.listener.ViewPagerTabListener;
 
 import java.util.ArrayList;
@@ -68,11 +69,15 @@ public class BusinessCenterFragment extends Fragment implements ViewPagerTabList
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         List<ItemInfo> list = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
-            list.add(new ItemInfo("Name " + i, "Desc " + i));
-        }
+//        for (int i = 0; i < 15; i++) {
+//            list.add(new ItemInfo("Name " + i, "Desc " + i));
+//        }
+        list.add(new ItemInfo("20 % off your purchase of $10 or more", "Present this promotion to your cashier upon checkout: z34srtL"));
+        list.add(new ItemInfo("FREE notebook with purchase of $5 or more", "Present this promotion code to your cashier upon checkout: xfreebieX"));
+        list.add(new ItemInfo("40% of your purchase of $5 or more", "Present this promotion code to your cashier upon checkout: FortyofiveO"));
 
         MyAdapter myAdapter = new MyAdapter(list);
+        recyclerView.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.big_divider), false, false));
         recyclerView.setAdapter(myAdapter);
     }
 

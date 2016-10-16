@@ -6,17 +6,17 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="90dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/carrental_item" />
+        android:layout_width="165dp"
+        android:layout_height="105dp"
+        android:scaleType="center" android:background="@color/white"
+        />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="30dp"
+
         android:orientation="vertical">
 
         <TextView

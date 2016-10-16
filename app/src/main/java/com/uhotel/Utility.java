@@ -217,13 +217,13 @@ public class Utility {
     }
 
     public static String getMacAddess() {
-        //return "00000000ffaa";
-        WifiManager manager = (WifiManager) MyApplicationContext.getInstance()
-                .getAppContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo info = manager.getConnectionInfo();
-        Log.d(Utility.class.getName(),info.getMacAddress());
-        return info.getMacAddress() != null ? info.getMacAddress().replace(":","")
-                : "00000000ffaa";
+        return "00000000ffaa";
+//        WifiManager manager = (WifiManager) MyApplicationContext.getInstance()
+//                .getAppContext().getSystemService(Context.WIFI_SERVICE);
+//        WifiInfo info = manager.getConnectionInfo();
+//        Log.d(Utility.class.getName(),info.getMacAddress());
+//        return info.getMacAddress() != null ? info.getMacAddress().replace(":","")
+//                : "00000000ffaa";
 
     }
 

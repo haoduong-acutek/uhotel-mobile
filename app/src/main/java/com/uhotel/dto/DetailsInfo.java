@@ -3,6 +3,8 @@ package com.uhotel.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Created by kiemhao on 9/24/16.
  */
@@ -12,6 +14,8 @@ public class DetailsInfo implements Parcelable {
     public Integer duration;
     public String poster;
     public String description;
+    public String actors;
+    public List<Genre> genres;
 
     public String getFormatDuration(){
         return duration/60+"h "+duration%60+"min";
@@ -53,4 +57,10 @@ public class DetailsInfo implements Parcelable {
             return new DetailsInfo[size];
         }
     };
+
+     public class Genre {
+
+        public String name;
+
+    }
 }

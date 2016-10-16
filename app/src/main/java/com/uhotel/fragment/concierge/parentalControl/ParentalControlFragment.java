@@ -2,6 +2,7 @@ package com.uhotel.fragment.concierge.parentalControl;
 
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -225,15 +226,17 @@ public class ParentalControlFragment extends Fragment implements ViewPagerTabLis
 
     @OnClick(R.id.btnEnableAll)
     void enableAllClick() {
-
-        if(isEnableAll)
-            btnEnableAll.setText("Enable All");
-        else btnEnableAll.setText("Disable All");
         isEnableAll=!isEnableAll;
+        setLockButton();
         MyAdapter myAdapter = (MyAdapter) recyclerView.getAdapter();
         myAdapter.setEnable(isEnableAll);
     }
 
+    private void setLockButton(){
+        if(isEnableAll)
+            btnEnableAll.setText("Disable All");
+        else btnEnableAll.setText("Enable All");
+    }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         public List<ItemInfo> getList() {
@@ -242,6 +245,7 @@ public class ParentalControlFragment extends Fragment implements ViewPagerTabLis
 
         private List<ItemInfo> list;
         private int total;
+        private boolean isLockedAll;
 
         public MyAdapter(List<ItemInfo> list) {
             this.list = list;
@@ -266,12 +270,17 @@ public class ParentalControlFragment extends Fragment implements ViewPagerTabLis
                 public void onClick(View v) {
                     detailItem.isLocked = !detailItem.isLocked;
                     notifyItemChanged(pos);
-
+                    for(ItemInfo item : list){
+                        if(!item.isLocked) {
+                            isEnableAll = false;
+                            setLockButton();
+                            break;
+                        }
+                    }
                 }
             });
             myViewHolder.txtName.setText(detailItem.name);
             myViewHolder.imageView.setImageResource(detailItem.isLocked ? R.drawable.locked : R.drawable.opened);
-            //myViewHolder.txtName.setTextColor(getResources().getColor(detailItem.isLocked ? R.color.white : R.color.dark));
             myViewHolder.viewGroup.setBackgroundResource(detailItem.isLocked ? R.drawable.control_bold : R.drawable.control);
 
         }

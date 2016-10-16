@@ -34,6 +34,7 @@ import com.uhotel.Utility;
 import com.uhotel.activity.VideoLandscapeActivity;
 import com.uhotel.config.Config;
 import com.uhotel.control.SimpleProgressDialog;
+import com.uhotel.dto.DetailsInfo;
 import com.uhotel.dto.MyJsonString;
 import com.uhotel.dto.ProfileInfo;
 import com.uhotel.dto.VodInfo;
@@ -74,6 +75,12 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
     public
     @BindView(R.id.txtTimeLeft)
     TextView txtTimeLeft;
+    @BindView(R.id.txtDirector)
+    TextView txtDirector;
+    @BindView(R.id.txtStar)
+    TextView txtStar;
+    @BindView(R.id.txtGenne)
+    TextView txtGenne;
 
     private VodInfo vodInfo;
     protected Context context;
@@ -148,6 +155,16 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
         txtTitle.setText(vodInfo.details.title);
         txtTimeLeft.setText(vodInfo.details.getFormatDuration());
         txtDesc.setText(vodInfo.details.description);
+        txtDirector.setText(vodInfo.details.director);
+        txtStar.setText(vodInfo.details.actors);
+        String genner="";
+        for (DetailsInfo.Genre genre: vodInfo.details.genres){
+            genner=genner+","+genre.name;
+        }
+        if(!TextUtils.isEmpty(genner))
+            genner=genner.substring(1);
+        txtGenne.setText(genner);
+
     }
 
 
