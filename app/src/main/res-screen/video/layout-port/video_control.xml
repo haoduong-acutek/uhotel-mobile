@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-    <io.vov.vitamio.widget.VideoView
-        android:id="@+id/videoView" android:layout_centerHorizontal="true"
-        android:layout_width="match_parent"  android:layout_above="@+id/btnFullScreen"
-        android:layout_height="match_parent" />
+
+    <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+        android:id="@+id/exo_player_view"
+        android:layout_width="match_parent" android:layout_centerHorizontal="true"
+        android:layout_height="match_parent" android:layout_above="@+id/btnFullScreen"
+        app:resize_mode="fill"/>
+
     <ImageView
         android:id="@+id/btnPlay"
         android:layout_width="100dp"

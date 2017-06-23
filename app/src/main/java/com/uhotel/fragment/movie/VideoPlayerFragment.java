@@ -190,7 +190,7 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
     @Override
     public void onPause() {
         super.onPause();
-        currentPos=controlView.videoView.getCurrentPosition();
+        currentPos=controlView.player.getCurrentPosition();
         controlView.onPause();
         flPlayer.removeView(controlView);
         controlView=null;
@@ -258,7 +258,7 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
         } catch (Exception exp) {
             intent.putExtra("videoURL", "");
         }
-        intent.putExtra(EXO_POS, controlView.videoView.getCurrentPosition());
+        intent.putExtra(EXO_POS, controlView.player.getCurrentPosition());
         intent.putExtra("isFromLiveTV",false);
         startActivityForResult(intent, 3);
     }

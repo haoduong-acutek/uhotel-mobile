@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="EasyAndroidAnimations-0.8">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.2359media/EasyAndroidAnimations/0.8/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.2359media/EasyAndroidAnimations/0.8/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/638c9c40ab97b13c8aeab1ab4b986841e4ee15a1/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/638c9c40ab97b13c8aeab1ab4b986841e4ee15a1/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

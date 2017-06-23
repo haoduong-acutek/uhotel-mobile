@@ -25,7 +25,6 @@ import com.uhotel.fragment.HomeFragment;
 import com.uhotel.fragment.MainFragment;
 import com.uhotel.interfaces.OnBackListener;
 
-import io.vov.vitamio.LibsChecker;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -39,8 +38,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         MyApplicationContext.setEnableUncatchException(this);
 
-        if (!LibsChecker.checkVitamioLibs(this))
-            return;
         //mCastContext = CastContext.getSharedInstance(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, MainFragment.init(), MainFragment.class.getName()).commitNow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

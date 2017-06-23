@@ -96,7 +96,7 @@ public class VideoLandscapeActivity extends AppCompatActivity implements VideoCo
     @Override
     public void toFullScreen() {
         Intent intent = new Intent();
-        intent.putExtra(EXO_POS, controlView.videoView.getCurrentPosition());
+        intent.putExtra(EXO_POS, controlView.player.getCurrentPosition());
         setResult(Activity.RESULT_OK, intent);
         finish();
     }

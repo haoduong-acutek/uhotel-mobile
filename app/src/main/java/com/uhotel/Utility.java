@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,8 @@ import android.widget.ExpandableListView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.exoplayer2.C;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -424,5 +427,20 @@ public class Utility {
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+
+    public static int inferContentType(Uri uri) {
+        String path = uri.getPath();
+        return path == null ? C.TYPE_OTHER : inferContentType(path);
+    }
+
+    public static int inferContentType(String fileName) {
+        fileName = fileName.toLowerCase();
+        if (fileName.endsWith(".m3u8")) {
+            return C.TYPE_HLS;
+        } else {
+            return C.TYPE_OTHER;
+        }
     }
 }

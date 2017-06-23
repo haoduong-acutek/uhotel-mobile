@@ -2,14 +2,11 @@ package com.uhotel.fragment.other;
 
 import android.content.Context;
 import android.net.Uri;
-import android.opengl.EGL14;
-import android.opengl.GLES20;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.Surface;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,28 +14,41 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.DefaultLoadControl;
+import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.PlaybackParameters;
+import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
+import com.google.android.exoplayer2.source.BehindLiveWindowException;
+import com.google.android.exoplayer2.source.ExtractorMediaSource;
+import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.source.hls.HlsMediaSource;
+import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
+import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
+import com.google.android.exoplayer2.trackselection.TrackSelection;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
+import com.google.android.exoplayer2.ui.PlaybackControlView;
+import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
+import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.uhotel.R;
 import com.uhotel.Utility;
-
-import javax.microedition.khronos.egl.EGL10;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.egl.EGLContext;
-import javax.microedition.khronos.egl.EGLDisplay;
-import javax.microedition.khronos.egl.EGLSurface;
-
-import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.Vitamio;
-import io.vov.vitamio.widget.VideoView;
 
 
 /**
  * Created by michael on 11/27/15.
  */
-public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPreparedListener, MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener {
+public class VideoControlView extends RelativeLayout {
 
 
     public ImageView btnPlay;
-    public VideoView videoView;
+
+    SimpleExoPlayerView simpleExoPlayerView;
     private ProgressBar progressBar;
     public SeekBar seekBar;
     private TextView txtFrom;
@@ -51,9 +61,10 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
     protected String videoURL;
     private Handler handler;
     private VideoControlViewListener controlViewListener;
+    public SimpleExoPlayer player;
+    private DefaultHttpDataSourceFactory dataSourceFactory;
 
     public long currentPos;
-    private boolean onResume;
 
     public VideoControlView(Context context) {
 
@@ -74,10 +85,10 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
         txtFrom = (TextView) v.findViewById(R.id.txtFrom);
         txtTo = (TextView) v.findViewById(R.id.txtTo);
         btnFullScreen = (ImageView) v.findViewById(R.id.btnFullScreen);
-        videoView = (VideoView) v.findViewById(R.id.videoView);
+        simpleExoPlayerView = (SimpleExoPlayerView) v.findViewById(R.id.exo_player_view);
         txtDownLoadRate = (TextView) v.findViewById(R.id.txtDownLoadRate);
         txtLoadRate = (TextView) v.findViewById(R.id.txtLoadRate);
-        Vitamio.isInitialized(context);
+
 
 
     }
@@ -102,13 +113,14 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
     public void run(){
 
         handler=new Handler();
-        videoView.setOnPreparedListener(this);
+        initExo();
+//        videoView.setOnPreparedListener(this);
+//
+//        videoView.requestFocus();
+//        videoView.setOnInfoListener(this);
+//        videoView.setOnBufferingUpdateListener(this);
 
-        videoView.requestFocus();
-        videoView.setOnInfoListener(this);
-        videoView.setOnBufferingUpdateListener(this);
-
-        videoView.setOnTouchListener(new View.OnTouchListener() {
+        simpleExoPlayerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
@@ -153,18 +165,111 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
                 if (fromUser) {
-                    videoView.seekTo(progress);
+                    player.seekTo(progress);
                 }
 
-                txtFrom.setText(Utility.durationInSecondsToString(videoView.getCurrentPosition()));
+                txtFrom.setText(Utility.durationInSecondsToString(player.getCurrentPosition()));
             }
         });
     }
 
+    private void initExo() {
+        TrackSelection.Factory videoTrackSelectionFactory =
+                new AdaptiveTrackSelection.Factory(new DefaultBandwidthMeter());
+
+        DefaultTrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
+
+
+        player= ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector, new DefaultLoadControl());
+        simpleExoPlayerView.setPlayer(player);
+
+        dataSourceFactory = new DefaultHttpDataSourceFactory("exo player");
+        player.addListener(new ExoPlayer.EventListener() {
+            @Override
+            public void onTimelineChanged(Timeline timeline, Object manifest) {
+
+
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+            }
+
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+                //CrashActivity.sendMail(error.getClass().getCanonicalName()+"---" +error.getMessage());
+                if (error instanceof ExoPlaybackException
+                        && error.getCause() instanceof BehindLiveWindowException) {
+
+                } else {
+
+                }
+
+            }
+
+            @Override
+            public void onPositionDiscontinuity() {
+
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+            }
+
+
+        });
+
+        simpleExoPlayerView.setControllerVisibilityListener(new PlaybackControlView.VisibilityListener() {
+            @Override
+            public void onVisibilityChange(int visibility) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                }, 100);
+                if (visibility == View.VISIBLE) {
+
+                } else {
+
+                }
+            }
+        });
+    }
+
+    private MediaSource buildMediaResouce(Uri uri){
+        int type = Utility.inferContentType(uri);
+        switch (type){
+            case C.TYPE_HLS:
+                return new HlsMediaSource(uri, dataSourceFactory, new Handler(), null);
+            case C.TYPE_OTHER:
+                return new ExtractorMediaSource(uri, dataSourceFactory, new DefaultExtractorsFactory(),
+                        new Handler(), null);
+            default: {
+                throw new IllegalStateException("Unsupported type: " + type);
+            }
+        }
+    }
+
     public void play(){
-        videoView.setVideoURI(Uri.parse(videoURL));
+        MediaSource videoSource = buildMediaResouce(Uri.parse(videoURL));
+        player.prepare(videoSource);
+        player.setPlayWhenReady(true);
+
         btnPlay.setActivated(false);
-        videoView.start();
+
         //seekBar.postDelayed(onEverySecond,1000);
     }
 
@@ -175,7 +280,7 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
         else {
             btnPlay.setActivated(!btnPlay.isActivated());
             if (btnPlay.isActivated()) {
-                videoView.pause();
+                player.setPlayWhenReady(false);
             } else {
                 play();
             }
@@ -199,7 +304,7 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
         @Override
         public void run() {
             if (seekBar != null) {
-                seekBar.setProgress((int) videoView.getCurrentPosition());
+                seekBar.setProgress((int) player.getCurrentPosition());
 
 
                 handler.postDelayed(this, 1000);
@@ -209,17 +314,16 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
 
 
     public void seekTo(long position){
-        videoView.seekTo( position);
+        player.seekTo( position);
     }
 
     public void changeVideoURL(String videoURL){
         this.videoURL=videoURL;
-        clearSurface(videoView.getHolder().getSurface());
         play();
     }
 
     public void onPause(){
-        videoView.stopPlayback();
+        player.stop();
         btnPlay.setActivated(true);
         handler.removeCallbacksAndMessages(null);
     }
@@ -230,86 +334,5 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
     }
 
 
-    @Override
-    public void onPrepared(MediaPlayer mp) {
-        mp.setPlaybackSpeed(1.0f);
-        seekBar.setMax((int) videoView.getDuration());
-        txtTo.setText(Utility.durationInSecondsToString(videoView.getDuration() ));
-        if (currentPos != 0)
-            videoView.seekTo(currentPos);
 
-    }
-
-    @Override
-    public boolean onInfo(MediaPlayer mp, int what, int extra) {
-        switch (what) {
-            case MediaPlayer.MEDIA_INFO_BUFFERING_START:
-                if (videoView.isPlaying()) {
-                    videoView.pause();
-                    progressBar.setVisibility(View.VISIBLE);
-                    txtDownLoadRate.setText("");
-                    txtLoadRate.setText("");
-                    txtDownLoadRate.setVisibility(View.VISIBLE);
-                    txtLoadRate.setVisibility(View.VISIBLE);
-                    handler.removeCallbacksAndMessages(null);
-                    btnPlay.setVisibility(GONE);
-                }
-                break;
-            case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-                videoView.start();
-                progressBar.setVisibility(View.GONE);
-                txtDownLoadRate.setVisibility(View.GONE);
-                txtLoadRate.setVisibility(View.GONE);
-                setControlBarVisible(GONE);
-                handler.postDelayed(onEverySecond, 1000);
-                break;
-            case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
-                txtDownLoadRate.setText("" + extra + "kb/s" + "  ");
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public void onBufferingUpdate(MediaPlayer mp, int percent) {
-        txtLoadRate.setText(percent + "%");
-    }
-
-    private void clearSurface(Surface surface) {
-        EGL10 egl = (EGL10) EGLContext.getEGL();
-        EGLDisplay display = egl.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-        egl.eglInitialize(display, null);
-
-        int[] attribList = {
-                EGL10.EGL_RED_SIZE, 8,
-                EGL10.EGL_GREEN_SIZE, 8,
-                EGL10.EGL_BLUE_SIZE, 8,
-                EGL10.EGL_ALPHA_SIZE, 8,
-                EGL10.EGL_RENDERABLE_TYPE,EGL10.EGL_WINDOW_BIT,
-                EGL10.EGL_NONE, 0,      // placeholder for recordable [@-3]
-                EGL10.EGL_NONE
-        };
-        EGLConfig[] configs = new EGLConfig[1];
-        int[] numConfigs = new int[1];
-        egl.eglChooseConfig(display, attribList, configs, configs.length, numConfigs);
-        EGLConfig config = configs[0];
-        EGLContext context = egl.eglCreateContext(display, config, EGL10.EGL_NO_CONTEXT, new int[]{
-                EGL14.EGL_CONTEXT_CLIENT_VERSION, 2,
-                EGL10.EGL_NONE
-        });
-        EGLSurface eglSurface = egl.eglCreateWindowSurface(display, config, surface,
-                new int[]{
-                        EGL10.EGL_NONE
-                });
-
-        egl.eglMakeCurrent(display, eglSurface, eglSurface, context);
-        GLES20.glClearColor(0, 0, 0, 1);
-        GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
-        egl.eglSwapBuffers(display, eglSurface);
-        egl.eglDestroySurface(display, eglSurface);
-        egl.eglMakeCurrent(display, EGL10.EGL_NO_SURFACE, EGL10.EGL_NO_SURFACE,
-                EGL10.EGL_NO_CONTEXT);
-        egl.eglDestroyContext(display, context);
-        egl.eglTerminate(display);
-    }
 }
