@@ -7,8 +7,8 @@ import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -37,8 +37,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
-import io.vov.vitamio.utils.Log;
 
 public class Utility {
 
@@ -218,8 +216,7 @@ public class Utility {
 
     public static String getMacAddess() {
         return "00000000ffaa";
-//        WifiManager manager = (WifiManager) MyApplicationContext.getInstance()
-//                .getAppContext().getSystemService(Context.WIFI_SERVICE);
+//        WifiManager manager = (WifiManager) MyApplicationContext.getInstance().getSystemService(Context.WIFI_SERVICE);
 //        WifiInfo info = manager.getConnectionInfo();
 //        Log.d(Utility.class.getName(),info.getMacAddress());
 //        return info.getMacAddress() != null ? info.getMacAddress().replace(":","")
@@ -422,4 +419,10 @@ public class Utility {
         return hms;
     }
 
+    public static boolean isNetworkOn(Context context){
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
 }

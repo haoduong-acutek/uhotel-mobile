@@ -48,6 +48,7 @@ public interface RetrofitService {
     @GET("request/{mac}/Beesmart")
     Call<MyJsonString<String>> getAllPurchasedItem(@Path("mac") String mac,
                                        @Query("path") String regionPath);
+
     @GET("request/{mac}/Beesmart")
     Call<MyJsonString<String>> getVodsOnCatId(@Path("mac") String mac,
                                                    @Query("path") String regionPath);

@@ -110,7 +110,7 @@ public class RightNowFragment extends Fragment {
             @Override
             public void run() {
                 if(recyclerView!=null)
-                ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPosition(index);
+                    ((LinearLayoutManager)recyclerView.getLayoutManager()).scrollToPosition(index);
             }
         },1000);
     }

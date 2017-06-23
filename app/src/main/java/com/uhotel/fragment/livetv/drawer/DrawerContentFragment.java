@@ -20,14 +20,12 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
-import com.google.gson.internal.bind.CollectionTypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 import com.uhotel.MyPreference;
 import com.uhotel.R;
 import com.uhotel.RetrofitService;
 import com.uhotel.ServiceGenerator;
 import com.uhotel.Utility;
-import com.uhotel.config.Config;
 import com.uhotel.control.SimpleProgressDialog;
 import com.uhotel.dto.ChannelInfo;
 import com.uhotel.dto.MyJsonString;
@@ -46,7 +44,6 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -361,10 +358,7 @@ public class DrawerContentFragment extends Fragment implements TabLayout.OnTabSe
 
         }
         Collections.sort(list,new TVInfo());
-
-            MyPreference.setListObject("listTV", list);
-
-
+        MyPreference.setListObject("listTV", list);
     }
 
 

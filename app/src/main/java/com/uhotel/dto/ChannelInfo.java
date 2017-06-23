@@ -1,12 +1,13 @@
 package com.uhotel.dto;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by kiemhao on 9/22/16.
  */
-public class ChannelInfo {
+public class ChannelInfo implements Comparator<ChannelInfo> {
 
     public Integer id;
     public String name;
@@ -27,6 +28,7 @@ public class ChannelInfo {
     public boolean localRecordable;
     public Object previewDuration;
     public List<StreamInfo> streams = new ArrayList<StreamInfo>();
+    public List<TVInfo> listRightNow;
 
     @Override
     public String toString() {
@@ -51,5 +53,10 @@ public class ChannelInfo {
                 ", previewDuration=" + previewDuration +
                 ", streams=" + streams +
                 '}';
+    }
+
+    @Override
+    public int compare(ChannelInfo source, ChannelInfo desc) {
+        return source.number-desc.number;
     }
 }

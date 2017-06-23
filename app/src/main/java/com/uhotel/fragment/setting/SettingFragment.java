@@ -96,14 +96,11 @@ public class SettingFragment extends Fragment implements TabLayout.OnTabSelected
 
 
     private void setupTab() {
-
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.addTab(tabLayout.newTab());
-
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(getTabView(i));
-
         }
     }
 
@@ -112,7 +109,6 @@ public class SettingFragment extends Fragment implements TabLayout.OnTabSelected
         View v = LayoutInflater.from(context).inflate(R.layout.setting_tab_layout, null);
         TextView tv = (TextView) v.findViewById(R.id.tabTextView);
         tv.setText(getTabText(position));
-
         return v;
     }
 

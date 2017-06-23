@@ -24,7 +24,6 @@ import com.uhotel.R;
 import com.uhotel.RetrofitService;
 import com.uhotel.ServiceGenerator;
 import com.uhotel.Utility;
-import com.uhotel.config.Config;
 import com.uhotel.control.SimpleProgressDialog;
 import com.uhotel.dto.CatInfo;
 import com.uhotel.dto.MovieTabInfo;

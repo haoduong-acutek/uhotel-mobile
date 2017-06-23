@@ -1,8 +1,10 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 android {
     compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.uhotel"
@@ -10,6 +12,13 @@ android {
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
+
+
+            //DO NOT REMOVE - FOR UPDATE APP
+            //Float versionSubCode = 0.5
+            String versionNameApp = "uhotel_mobile_V" +  versionName
+            archivesBaseName = versionNameApp +"_" + getAppBuildVersionName();
+
     }
     buildTypes {
         release {
@@ -56,3 +65,11 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile project(':vitamio')
 }
+
+def getAppBuildVersionName() {
+    Date now = new Date()
+    SimpleDateFormat timestamp = new SimpleDateFormat("yyyyMMdd");
+    def buildName = timestamp.format(now)
+    return buildName
+}
+

@@ -34,18 +34,20 @@ public class HouseKeepingFragment extends Fragment implements ViewPagerTabListen
     private Unbinder unbinder;
     private boolean isClicked;
 
-    public static HouseKeepingFragment init() {
-        HouseKeepingFragment fragment = new HouseKeepingFragment();
-        Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = context;
+    }
+
+    public static HouseKeepingFragment init() {
+        HouseKeepingFragment fragment = new HouseKeepingFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
