@@ -133,6 +133,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     };
 
+
 //
 //    private class MySessionManagerListener implements SessionManagerListener<CastSession> {
 //
