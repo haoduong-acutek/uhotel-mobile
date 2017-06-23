@@ -32,9 +32,9 @@ import com.uhotel.RetrofitService;
 import com.uhotel.ServiceGenerator;
 import com.uhotel.Utility;
 import com.uhotel.activity.VideoLandscapeActivity;
-import com.uhotel.config.Config;
 import com.uhotel.control.SimpleProgressDialog;
 import com.uhotel.dto.DetailsInfo;
+import com.uhotel.dto.MediaInfo;
 import com.uhotel.dto.MyJsonString;
 import com.uhotel.dto.ProfileInfo;
 import com.uhotel.dto.VodInfo;
@@ -313,7 +313,9 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
                             List<com.uhotel.dto.MediaInfo> list = gson.fromJson(
                                     new JsonParser().parse(jsonObject.getString("list"))
                                             .getAsJsonArray(), listType);
-                            videoURL = findById(vodInfo.purchaseId + "", list).mediaResources.get(0).src;
+                            MediaInfo mediaInfo=findById(vodInfo.purchaseId + "", list);
+                            if(mediaInfo.mediaResources.size()>0)
+                                videoURL = findById(vodInfo.purchaseId + "", list).mediaResources.get(0).src;
                         } catch (JSONException e) {
                             e.printStackTrace();
                             videoURL = "";

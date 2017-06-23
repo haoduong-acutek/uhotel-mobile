@@ -235,8 +235,8 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
         mp.setPlaybackSpeed(1.0f);
         seekBar.setMax((int) videoView.getDuration());
         txtTo.setText(Utility.durationInSecondsToString(videoView.getDuration() ));
-                if (currentPos != 0)
-                    videoView.seekTo(currentPos);
+        if (currentPos != 0)
+            videoView.seekTo(currentPos);
 
     }
 

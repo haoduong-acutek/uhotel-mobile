@@ -71,23 +71,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="37 oc"
+                            android:text="37 °C"
                             android:textColor="@color/white"
                             android:textSize="@dimen/normal" />
                     </LinearLayout>
 
-                    <TextView
+                    <TextClock
+                        android:id="@+id/textClock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/llWeather"
                         android:layout_marginLeft="60dp"
                         android:layout_marginRight="60dp"
                         android:layout_marginTop="5dp"
+                        android:format12Hour="hh:mm a | MMM dd,yyyy"
                         android:gravity="center"
-                        android:maxLines="5"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry "
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/normal" />
+                        android:layout_centerHorizontal="true"
+                        android:textSize="@dimen/normal"
+                        android:textColor="@color/white" />
 
                     <LinearLayout
                         android:id="@+id/llExpand"

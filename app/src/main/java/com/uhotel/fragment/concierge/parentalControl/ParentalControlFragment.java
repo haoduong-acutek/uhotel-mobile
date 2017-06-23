@@ -2,7 +2,6 @@ package com.uhotel.fragment.concierge.parentalControl;
 
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.uhotel.R;
 import com.uhotel.RetrofitService;
 import com.uhotel.ServiceGenerator;
 import com.uhotel.Utility;
-import com.uhotel.config.Config;
 import com.uhotel.control.GridSpacingItemDecoration;
 import com.uhotel.control.SimpleProgressDialog;
 import com.uhotel.dto.MyJsonObject;
@@ -244,8 +242,8 @@ public class ParentalControlFragment extends Fragment implements ViewPagerTabLis
         }
 
         private List<ItemInfo> list;
-        private int total;
-        private boolean isLockedAll;
+
+        public int selectIndex;
 
         public MyAdapter(List<ItemInfo> list) {
             this.list = list;
@@ -265,23 +263,52 @@ public class ParentalControlFragment extends Fragment implements ViewPagerTabLis
         @Override
         public void onBindViewHolder(final MyViewHolder myViewHolder, final int pos) {
             final ItemInfo detailItem = list.get(pos);
+
             myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    selectIndex=pos;
                     detailItem.isLocked = !detailItem.isLocked;
-                    notifyItemChanged(pos);
+                    notifyDataSetChanged();
+                    isEnableAll=true;
                     for(ItemInfo item : list){
                         if(!item.isLocked) {
-                            isEnableAll = false;
-                            setLockButton();
+                            isEnableAll=false;
                             break;
                         }
                     }
+                    setLockButton();
+
                 }
             });
             myViewHolder.txtName.setText(detailItem.name);
+
             myViewHolder.imageView.setImageResource(detailItem.isLocked ? R.drawable.locked : R.drawable.opened);
             myViewHolder.viewGroup.setBackgroundResource(detailItem.isLocked ? R.drawable.control_bold : R.drawable.control);
+            if(detailItem.isLocked )
+                myViewHolder.itemView.setSelected(true);
+            else myViewHolder.itemView.setSelected(false);
+            if(selectIndex==pos)
+                myViewHolder.itemView.requestFocus();
+
+//
+//            myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    detailItem.isLocked = !detailItem.isLocked;
+//                    notifyItemChanged(pos);
+//                    for(ItemInfo item : list){
+//                        if(!item.isLocked) {
+//                            isEnableAll = false;
+//                            setLockButton();
+//                            break;
+//                        }
+//                    }
+//                }
+//            });
+//            myViewHolder.txtName.setText(detailItem.name);
+//            myViewHolder.imageView.setImageResource(detailItem.isLocked ? R.drawable.locked : R.drawable.opened);
+//            myViewHolder.viewGroup.setBackgroundResource(detailItem.isLocked ? R.drawable.control_bold : R.drawable.control);
 
         }
 
@@ -314,6 +341,7 @@ public class ParentalControlFragment extends Fragment implements ViewPagerTabLis
             for (ItemInfo itemInfo : list) {
                 itemInfo.isLocked = isEnable;
             }
+            selectIndex=-1;
             notifyDataSetChanged();
         }
     }
