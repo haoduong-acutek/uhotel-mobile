@@ -168,7 +168,7 @@ public class VideoControlView extends RelativeLayout implements MediaPlayer.OnPr
         //seekBar.postDelayed(onEverySecond,1000);
     }
 
-    private void setupPlayButton() {
+    public void setupPlayButton() {
         if(controlViewListener.isPlayCheck()){
             ((VideoControlViewMovieListener)controlViewListener).showBuyDialog();
         }

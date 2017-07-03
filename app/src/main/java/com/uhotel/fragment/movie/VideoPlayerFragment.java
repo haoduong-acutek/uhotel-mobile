@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -277,6 +278,13 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
             if (resultCode == Activity.RESULT_OK) {
 
                 currentPos= data.getLongExtra(VideoPlayerFragment.EXO_POS, 0L);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        controlView.play();
+                    }
+                },1500);
+
 
             }
         }

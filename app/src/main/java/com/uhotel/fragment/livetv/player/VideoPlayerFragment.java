@@ -114,6 +114,12 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
         if (resultCode == Activity.RESULT_OK) {
             //controlView.currentPos= data.getLongExtra(PlayerFragment.EXO_POS, 0L);
             //controlView.seekTo( controlView.currentPos);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    controlView.setupPlayButton();
+                }
+            },1500);
         }
     }
 

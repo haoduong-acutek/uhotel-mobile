@@ -84,6 +84,7 @@ public class VideoLandscapeActivity extends AppCompatActivity implements VideoCo
     protected void onResume() {
         super.onResume();
         controlView.onResume();
+        controlView.setupPlayButton();
     }
 
 
