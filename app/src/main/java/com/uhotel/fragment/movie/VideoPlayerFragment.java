@@ -176,15 +176,16 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
     }
 
     private void setupVideoView(){
-        controlView=new VideoControlView(context);
+        controlView=new VideoControlView(context,false);
         flPlayer.addView(controlView);
         controlView.setupListener(VideoPlayerFragment.this);
-        controlView.run();
+
         if(!TextUtils.isEmpty(videoURL)) {
             controlView.setVideoURL(videoURL);
             controlView.currentPos=currentPos;
-
+            controlView.run();
         }
+
     }
 
     @Override
@@ -270,7 +271,7 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null && data.getBooleanExtra("isRent", false)) {
                     isPurchased = true;
-                    controlView.play();
+                    controlView.run();
                 }
             }
         } else {
@@ -321,6 +322,7 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
                             videoURL = "";
                         }
                         controlView.setVideoURL(videoURL);
+//                        controlView.run();
                         Log.d(VideoPlayerFragment.this.getClass().getName(), videoURL);
 
                     } catch (NullPointerException e) {

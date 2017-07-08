@@ -64,14 +64,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:src="@drawable/ico_weather" />
+                            android:layout_marginLeft="10dp" android:id="@+id/imgWeather"
+                             />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:text="37 °C"
+                            android:id="@+id/txtWeather"
                             android:textColor="@color/white"
                             android:textSize="@dimen/normal" />
                     </LinearLayout>

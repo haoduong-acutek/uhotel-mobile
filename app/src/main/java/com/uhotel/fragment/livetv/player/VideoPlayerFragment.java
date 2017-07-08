@@ -86,7 +86,7 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
     protected long duration;
     protected Handler handler;
     protected String videoURL;
-    protected long exoPos;
+
     protected boolean isValidCall;
 
 
@@ -144,7 +144,7 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
             @Override
             public void onReceive(Context context, Intent intent) {
 
-                exoPos = 0;
+
                 tvInfo = intent.getParcelableExtra(TV_INFO);
                 try {
                     videoURL = tvInfo.channelStreams.get(0).src;
@@ -152,7 +152,7 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
                     videoURL = "";
                 }
                 controlView.changeVideoURL(videoURL);
-                loadRemoteMedia(controlView.seekBar.getProgress(), true);
+                loadRemoteMedia((int) controlView.player.getCurrentPosition(), true);
                 updateUI();
 
             }
@@ -213,13 +213,13 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
     public void onResume() {
 
         if (mCastSession != null && mCastSession.getRemoteMediaClient() != null) {
-            exoPos = (int) mCastSession.getRemoteMediaClient().getApproximateStreamPosition();
+            int exoPos = (int) mCastSession.getRemoteMediaClient().getApproximateStreamPosition();
             isValidCall = true;
-//            mPlayerView.mPreviousPosition=exoPos;
-//            mPlayerView.preparePlayer();
-
-            controlView.seekTo((int) exoPos);
-            mCastSession.getRemoteMediaClient().seek(duration * exoPos / controlView.seekBar.getMax());
+////            mPlayerView.mPreviousPosition=exoPos;
+////            mPlayerView.preparePlayer();
+//
+//            controlView.seekTo((int) exoPos);
+            mCastSession.getRemoteMediaClient().seek(exoPos);
         } else {
             setupVideoView();
         }
@@ -232,15 +232,15 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
     }
 
     private void setupVideoView(){
-        controlView=new VideoControlView(context);
+        controlView=new VideoControlView(context,true);
         flPlayer.addView(controlView);
         controlView.setupListener(this);
-        controlView.seekBar.setEnabled(false);
-        controlView.run();
+
         if(!TextUtils.isEmpty(videoURL)) {
             controlView.setVideoURL(videoURL);
-
+            controlView.run();
         }
+
     }
 
     @Override
@@ -367,7 +367,7 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
                 mCastSession = castSession;
 
 
-                loadRemoteMedia(controlView.seekBar.getProgress() * 1000, true);
+                loadRemoteMedia((int) controlView.player.getCurrentPosition(), true);
 //                if (null != mSelectedMedia) {
 //
 //                    if (mPlaybackState == PlaybackState.PLAYING) {

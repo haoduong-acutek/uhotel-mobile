@@ -2,10 +2,6 @@ package com.uhotel.fragment;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -22,8 +18,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.uhotel.MyPreference;
 import com.uhotel.R;
 import com.uhotel.dto.ProfileInfo;
@@ -35,11 +29,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import zh.wang.android.yweathergetter4a.WeatherInfo;
+import zh.wang.android.yweathergetter4a.YahooWeather;
+import zh.wang.android.yweathergetter4a.YahooWeatherInfoListener;
 
 /**
  * Created by kiemhao on 8/25/16.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements YahooWeatherInfoListener {
 
     @BindView(R.id.root)
     ViewGroup rootView;
@@ -53,11 +50,15 @@ public class HomeFragment extends Fragment {
     ScrollView scrollView;
     @BindView(R.id.txtName)
     TextView txtName;
-
+    @BindView(R.id.txtWeather)
+    TextView txtWeather;
+    @BindView(R.id.imgWeather)
+    ImageView imgWeather;
 
     private int screenHeight;
     private int visibleItem;
 
+    private YahooWeather mYahooWeather;
 
     private Context context;
     private Unbinder unbinder;
@@ -79,6 +80,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mYahooWeather = YahooWeather.getInstance(5000, true);
     }
 
     @Nullable
@@ -118,6 +120,8 @@ public class HomeFragment extends Fragment {
         //rcvExpand.setVisibility(View.VISIBLE);
         runDelayStartup();
 
+
+        searchByPlaceName("united state");
     }
 
     public int getStatusBarHeight() {
@@ -184,6 +188,7 @@ public class HomeFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
     }
+
 
 
     class ExpandAdapter extends RecyclerView.Adapter<ExpandAdapter.MyViewHolder> {
@@ -283,4 +288,26 @@ public class HomeFragment extends Fragment {
             this.title = title;
         }
     }
+
+    //--------Yahoo weather api
+    private void searchByPlaceName(String location) {
+        mYahooWeather.setNeedDownloadIcons(true);
+        mYahooWeather.setUnit(YahooWeather.UNIT.FAHRENHEIT);
+        mYahooWeather.setSearchMode(YahooWeather.SEARCH_MODE.PLACE_NAME);
+        mYahooWeather.queryYahooWeatherByPlaceName(context, location, this);
+    }
+
+    @Override
+    public void gotWeatherInfo(WeatherInfo weatherInfo, YahooWeather.ErrorType errorType) {
+        if(imgWeather==null)
+            return;
+        if (weatherInfo.getCurrentConditionIcon() != null) {
+
+            imgWeather.setImageBitmap(weatherInfo.getCurrentConditionIcon());
+        }
+        if(weatherInfo!=null)
+            txtWeather.setText(weatherInfo.getCurrentTemp()+" °F");
+
+    }
+
 }

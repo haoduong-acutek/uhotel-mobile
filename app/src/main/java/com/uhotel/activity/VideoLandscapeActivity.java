@@ -32,6 +32,7 @@ public class VideoLandscapeActivity extends AppCompatActivity implements VideoCo
     private Unbinder unbinder;
     private String videoURL;
     public static String EXO_POS = "process";
+    private boolean isTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +48,14 @@ public class VideoLandscapeActivity extends AppCompatActivity implements VideoCo
 
         unbinder = ButterKnife.bind(this);
 
+        isTV=getIntent().getBooleanExtra("isFromLiveTV",false);
         videoURL=  getIntent().getStringExtra("videoURL");
-        controlView=new VideoControlView(this);
+        controlView=new VideoControlView(this,isTV);
         flPlayer.addView(controlView);
         controlView.setupListener(this);
         controlView.setVideoURL(videoURL);
         controlView.currentPos=getIntent().getLongExtra(EXO_POS,0L);
-        if(getIntent().getBooleanExtra("isFromLiveTV",false))
-            controlView.seekBar.setEnabled(false);
+
         controlView.run();
 
     }
