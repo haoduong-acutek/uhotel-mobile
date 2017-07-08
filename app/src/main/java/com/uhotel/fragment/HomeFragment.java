@@ -299,7 +299,7 @@ public class HomeFragment extends Fragment implements YahooWeatherInfoListener {
 
     @Override
     public void gotWeatherInfo(WeatherInfo weatherInfo, YahooWeather.ErrorType errorType) {
-        if(imgWeather==null)
+        if(!isResumed())
             return;
         if (weatherInfo.getCurrentConditionIcon() != null) {
 
