@@ -4,6 +4,7 @@ package com.uhotel.fragment.movie;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,13 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.framework.CastButtonFactory;
+import com.google.android.gms.cast.framework.CastContext;
+import com.google.android.gms.cast.framework.CastSession;
+import com.google.android.gms.cast.framework.SessionManagerListener;
+import com.google.android.gms.cast.framework.media.RemoteMediaClient;
+import com.google.android.gms.common.images.WebImage;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
@@ -40,6 +47,7 @@ import com.uhotel.dto.ProfileInfo;
 import com.uhotel.dto.VodInfo;
 import com.uhotel.fragment.listener.ToolbarListener;
 import com.uhotel.fragment.livetv.LiveTVFragment;
+import com.uhotel.fragment.livetv.cast.ExpandedControlsActivity;
 import com.uhotel.fragment.other.VideoControlView;
 import com.uhotel.fragment.other.VideoControlViewMovieListener;
 import com.uhotel.interfaces.OnBackListener;
@@ -93,6 +101,11 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
     private VideoControlView controlView;
     private long currentPos;
 
+    protected CastContext mCastContext;
+    protected CastSession mCastSession;
+    protected SessionManagerListener<CastSession> mSessionManagerListener;
+    protected com.google.android.gms.cast.MediaInfo mSelectedMedia;
+
 
     public static VideoPlayerFragment init(VodInfo vodInfo, boolean isPurchased) {
         VideoPlayerFragment fragment = new VideoPlayerFragment();
@@ -118,6 +131,8 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         vodInfo = getArguments().getParcelable("vodInfo");
+        setupCastListener();
+        mCastContext = CastContext.getSharedInstance(context);
 
 
     }
@@ -137,6 +152,8 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
         super.onViewCreated(view, savedInstanceState);
 
         ((ToolbarListener) getParentFragment()).changeNavIcon(R.drawable.ico_back);
+
+        setupVideoView();
 
         //----broadcast disable slide
         Intent intent = new Intent(LiveTVFragment.LIVE_TV_FILTER);
@@ -171,7 +188,17 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
     @Override
     public void onResume() {
         super.onResume();
-        setupVideoView();
+
+        if (mCastSession != null && mCastSession.getRemoteMediaClient() != null) {
+            int exoPos = (int) mCastSession.getRemoteMediaClient().getApproximateStreamPosition();
+            controlView.currentPos=exoPos;
+        }
+        else{
+            if(!TextUtils.isEmpty(videoURL))
+                controlView.onResume();
+        }
+        mCastContext.getSessionManager().addSessionManagerListener(
+                mSessionManagerListener, CastSession.class);
 
     }
 
@@ -192,9 +219,11 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
     public void onPause() {
         super.onPause();
         currentPos=controlView.player.getCurrentPosition();
+        controlView.currentPos=currentPos;
         controlView.onPause();
-        flPlayer.removeView(controlView);
-        controlView=null;
+
+        mCastContext.getSessionManager().removeSessionManagerListener(
+                mSessionManagerListener, CastSession.class);
 
     }
 
@@ -220,6 +249,7 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.live_tv_player, menu);
+        if(isPurchased)
         CastButtonFactory.setUpMediaRouteButton(context,
                 menu,
                 R.id.media_route_menu_item);
@@ -272,6 +302,7 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
                 if (data != null && data.getBooleanExtra("isRent", false)) {
                     isPurchased = true;
                     controlView.run();
+                    getActivity().supportInvalidateOptionsMenu();
                 }
             }
         } else {
@@ -368,4 +399,117 @@ public class VideoPlayerFragment extends Fragment implements  OnBackListener ,Vi
         rentDialogFragment.setTargetFragment(this, RentDialogFragment.REQUEST_CODE);
         rentDialogFragment.show(getFragmentManager(), RentDialogFragment.class.getName());
     }
+
+    //CAST
+
+    private void setupCastListener() {
+        mSessionManagerListener = new SessionManagerListener<CastSession>() {
+
+            @Override
+            public void onSessionEnded(CastSession session, int error) {
+                onApplicationDisconnected();
+            }
+
+            @Override
+            public void onSessionResumed(CastSession session, boolean wasSuspended) {
+                onApplicationConnected(session);
+            }
+
+            @Override
+            public void onSessionResumeFailed(CastSession session, int error) {
+                onApplicationDisconnected();
+            }
+
+            @Override
+            public void onSessionStarted(CastSession session, String sessionId) {
+                onApplicationConnected(session);
+            }
+
+            @Override
+            public void onSessionStartFailed(CastSession session, int error) {
+                onApplicationDisconnected();
+            }
+
+            @Override
+            public void onSessionStarting(CastSession session) {
+            }
+
+            @Override
+            public void onSessionEnding(CastSession session) {
+            }
+
+            @Override
+            public void onSessionResuming(CastSession session, String sessionId) {
+            }
+
+            @Override
+            public void onSessionSuspended(CastSession session, int reason) {
+            }
+
+            private void onApplicationConnected(CastSession castSession) {
+                mCastSession = castSession;
+
+                controlView.onPause();
+                loadRemoteMedia((int) controlView.player.getCurrentPosition(), true);
+
+                //getActivity().supportInvalidateOptionsMenu();
+            }
+
+            private void onApplicationDisconnected() {
+                controlView.onResume();
+
+
+            }
+        };
+    }
+
+
+    private void loadRemoteMedia(int position, boolean autoPlay) {
+        if (mCastSession == null || !isPurchased) {
+            return;
+        }
+        final RemoteMediaClient remoteMediaClient = mCastSession.getRemoteMediaClient();
+        if (remoteMediaClient == null) {
+            return;
+        }
+        remoteMediaClient.addListener(new RemoteMediaClient.Listener() {
+            @Override
+            public void onStatusUpdated() {
+                Intent intent = new Intent(context, ExpandedControlsActivity.class);
+                startActivity(intent);
+                remoteMediaClient.removeListener(this);
+            }
+
+            @Override
+            public void onMetadataUpdated() {
+            }
+
+            @Override
+            public void onQueueStatusUpdated() {
+            }
+
+            @Override
+            public void onPreloadStatusUpdated() {
+            }
+
+            @Override
+            public void onSendingRemoteMediaRequest() {
+            }
+        });
+        setMediaInfo();
+        remoteMediaClient.load(mSelectedMedia, autoPlay, position);
+    }
+
+    private void setMediaInfo() {
+        MediaMetadata mediaMetadata = new MediaMetadata(MediaMetadata.MEDIA_TYPE_MOVIE);
+        mediaMetadata.putString(MediaMetadata.KEY_TITLE, "Live TV");
+        mediaMetadata.addImage(new WebImage(Uri.parse("http://media.karaokecuatui.vn//image//2016//08//25//e//5//e553f25cbebf4c7aaec8618ce2a10fd5_460_230.jpg")));
+        mSelectedMedia = new com.google.android.gms.cast.MediaInfo.Builder(
+                videoURL)
+                .setContentType("video/mp4")
+                .setStreamType(com.google.android.gms.cast.MediaInfo.STREAM_TYPE_BUFFERED)
+                .setMetadata(mediaMetadata)
+                .build();
+    }
+
 }
