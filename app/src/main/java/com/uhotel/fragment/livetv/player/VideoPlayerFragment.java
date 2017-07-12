@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
+import com.google.android.gms.cast.framework.CastButtonFactory;
 import com.google.android.gms.cast.framework.CastContext;
 import com.google.android.gms.cast.framework.CastSession;
 import com.google.android.gms.cast.framework.SessionManagerListener;
@@ -87,7 +88,6 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
     protected Handler handler;
     protected String videoURL;
 
-    protected boolean isValidCall;
 
 
 
@@ -135,9 +135,9 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
         tvInfo = getArguments().getParcelable("tvInfo");
         videoURL = tvInfo.channelStreams.get(0).src;
         setupCastListener();
-//        mCastContext = CastContext.getSharedInstance(context);
-//
-//        mCastSession = mCastContext.getSessionManager().getCurrentCastSession();
+        mCastContext = CastContext.getSharedInstance(context);
+
+        mCastSession = mCastContext.getSessionManager().getCurrentCastSession();
 
 
         broadcastReceiver = new BroadcastReceiver() {
@@ -173,6 +173,8 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
         super.onViewCreated(view, savedInstanceState);
 
         ((DrawerContentListener) getParentFragment()).hideTabBar();
+
+        setupVideoView();
 
         //----broadcast disable slide
         Intent intent = new Intent(LiveTVFragment.LIVE_TV_FILTER);
@@ -211,23 +213,19 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
 
     @Override
     public void onResume() {
-
+        super.onResume();
         if (mCastSession != null && mCastSession.getRemoteMediaClient() != null) {
             int exoPos = (int) mCastSession.getRemoteMediaClient().getApproximateStreamPosition();
-            isValidCall = true;
-////            mPlayerView.mPreviousPosition=exoPos;
-////            mPlayerView.preparePlayer();
-//
-//            controlView.seekTo((int) exoPos);
-            mCastSession.getRemoteMediaClient().seek(exoPos);
-        } else {
-            setupVideoView();
+            controlView.currentPos=exoPos;
         }
-
-//        mCastContext.getSessionManager().addSessionManagerListener(
-//                mSessionManagerListener, CastSession.class);
+        else{
+            controlView.onResume();
+        }
+        mCastContext.getSessionManager().addSessionManagerListener(
+                mSessionManagerListener, CastSession.class);
         LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, new IntentFilter(VIDEO_BC_FILTER));
-        super.onResume();
+
+
 
     }
 
@@ -245,14 +243,13 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
 
     @Override
     public void onPause() {
-        super.onPause();
 
+        super.onPause();
         controlView.onPause();
-        flPlayer.removeView(controlView);
-        controlView=null;
+
         LocalBroadcastManager.getInstance(context).unregisterReceiver(broadcastReceiver);
-//        mCastContext.getSessionManager().removeSessionManagerListener(
-//                mSessionManagerListener, CastSession.class);
+        mCastContext.getSessionManager().removeSessionManagerListener(
+                mSessionManagerListener, CastSession.class);
 
     }
 
@@ -279,10 +276,10 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.live_tv_player, menu);
-//        CastButtonFactory.setUpMediaRouteButton(context,
-//                menu,
-//                R.id.media_route_menu_item);
-//        super.onCreateOptionsMenu(menu, inflater);
+        CastButtonFactory.setUpMediaRouteButton(context,
+                menu,
+                R.id.media_route_menu_item);
+        super.onCreateOptionsMenu(menu, inflater);
 
     }
 
@@ -366,28 +363,14 @@ public class VideoPlayerFragment extends Fragment implements OnBackListener,Vide
             private void onApplicationConnected(CastSession castSession) {
                 mCastSession = castSession;
 
-
+                controlView.onPause();
                 loadRemoteMedia((int) controlView.player.getCurrentPosition(), true);
-//                if (null != mSelectedMedia) {
-//
-//                    if (mPlaybackState == PlaybackState.PLAYING) {
-//                        mVideoView.pause();
-//                        loadRemoteMedia(mSeekbar.getProgress(), true);
-//                        return;
-//                    } else {
-//                        mPlaybackState = PlaybackState.IDLE;
-//                        updatePlaybackLocation(PlaybackLocation.REMOTE);
-//                    }
-//                }
-//                updatePlayButton(mPlaybackState);
-                //getActivity().invalidateOptionsMenu();
-                getActivity().supportInvalidateOptionsMenu();
+
+                //getActivity().supportInvalidateOptionsMenu();
             }
 
             private void onApplicationDisconnected() {
-
-                //updatePlaybackLocation(PlaybackLocation.LOCAL);
-                //mPlaybackState = PlaybackState.IDLE;
+                controlView.onResume();
 
 
             }

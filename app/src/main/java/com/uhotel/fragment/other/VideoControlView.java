@@ -233,12 +233,15 @@ public class VideoControlView extends RelativeLayout {
     }
 
     public void onPause(){
+        player.setPlayWhenReady(false);
         player.stop();
+        imaPlay.setSelected(true);
+        imaPlay.requestFocus();
 
     }
 
     public void onResume(){
-
+        runExo();
 
     }
 

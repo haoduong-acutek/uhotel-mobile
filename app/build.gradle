@@ -67,7 +67,6 @@ dependencies {
     compile 'zh.wang.android:yweathergetter4a:1.3.0'
     compile 'com.google.android.exoplayer:exoplayer:r2.4.1'
 
-
 }
 
 def getAppBuildVersionName() {

@@ -32,13 +32,14 @@ public class HomeActivity extends AppCompatActivity {
 
     private CastContext mCastContext;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         MyApplicationContext.setEnableUncatchException(this);
 
-        //mCastContext = CastContext.getSharedInstance(this);
+        mCastContext = CastContext.getSharedInstance(this);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, MainFragment.init(), MainFragment.class.getName()).commitNow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -96,14 +97,14 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        mCastContext.addCastStateListener(mCastStateListener);
+        mCastContext.addCastStateListener(mCastStateListener);
 
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //mCastContext.removeCastStateListener(mCastStateListener);
+        mCastContext.removeCastStateListener(mCastStateListener);
 
 
 
@@ -130,7 +131,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     };
 
-//
+
 //    private class MySessionManagerListener implements SessionManagerListener<CastSession> {
 //
 //        @Override
